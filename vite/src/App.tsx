@@ -14,7 +14,7 @@ const App = () => {
 
 const [auth, setAuth]=useState<boolean>(false);
 
-if(!auth) return <AuthProvider setAuth={setAuth}> <Login/> </AuthProvider>
+if(auth) return <AuthProvider setAuth={setAuth}> <Login/> </AuthProvider>
 
   return (
     <div className="bg-gray-200">
