@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import { AuthProvider } from './context/authContext';
 import Navbar from './components/articles/Navbar';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { DatabaseProvider } from './context/addDatabaseContext';
 //import Blogs from './components/blogpages/Blogs';
 //import Sidebar from './components/articles/Sidebar';
 import CreatePost from './pages/CreatePost';
@@ -19,6 +20,7 @@ if(auth) return <AuthProvider setAuth={setAuth}> <Login/> </AuthProvider>
   return (
     <div className="bg-gray-200">
       <AuthProvider setAuth={setAuth}>
+        <DatabaseProvider>
       <Router>
         <Navbar/>
         <Routes>
@@ -26,6 +28,7 @@ if(auth) return <AuthProvider setAuth={setAuth}> <Login/> </AuthProvider>
           <Route path="/c" element={<CreatePost/>}/>
         </Routes>
       </Router>
+      </DatabaseProvider>
       </AuthProvider>
     </div>
   )
