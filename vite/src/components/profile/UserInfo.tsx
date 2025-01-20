@@ -9,20 +9,20 @@ const UserInfo: React.FC = () => {
     <div className="p-10 flex flex-col items-center bg-white shadow-lg rounded-lg max-w-md mx-auto">
 
       <div className="flex flex-col items-center gap-4">
-        <div className="w-24 h-24 bg-blue-500 text-white flex items-center justify-center font-bold text-3xl rounded-full">
+        <div className="w-24 h-24 bg-gray-200 text-pink-700 flex items-center justify-center font-bold text-3xl rounded-full">
           {auth.currentUser?.email?.charAt(0).toUpperCase() || 'U'}
         </div>
-        <h2 className="text-2xl font-semibold text-gray-800">
+        <h2 className="text-2xl font-semibold text-pink-700">
           {auth.currentUser?.displayName || 'User Name'}
         </h2>
-        <p className="text-gray-500">
+        <p className="text-pink-700">
           {auth.currentUser?.email || 'user@example.com'}
         </p>
       </div>
     
       <div className="mt-6 w-full bg-gray-100 p-6 rounded-lg">
-        <h3 className="text-lg font-semibold text-gray-700">About You</h3>
-        <p className="mt-2 text-gray-600  text-xs">
+        <h3 className="text-lg font-semibold text-pink-700">About You</h3>
+        <p className="mt-2 text-pink-700  text-xs">
           Welcome to your profile feed! Here, you can see and manage your account information.
         </p>
       </div>

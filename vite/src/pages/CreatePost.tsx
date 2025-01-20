@@ -5,7 +5,7 @@ import ProfileFeed from '../components/feed/ProfileFeed';
 
 const CreatePost = () => {
   return (
-    <div className="bg-gray-100 w-full h-screen flex">
+    <div className="bg-white w-full h-auto flex">
       <PostFeed/>
       <ProfileFeed/>
     </div>

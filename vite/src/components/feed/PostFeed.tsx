@@ -18,14 +18,14 @@ const PostFeed: React.FC = () => {
 
 
   return (
-    <div className="w-full lg:w-3/4 p-10 min-h-screen bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 rounded-lg flex flex-col m-10 items-center justify-center shadow-lg">
+    <div className="lg:w-3/4 p-2 h-auto bg-gray-200 rounded-lg flex flex-col m-2 items-center justify-center shadow-lg">
       
       <div className="flex gap-3 mb-6">
         {categories.map((cat) => (
           <label
             htmlFor={cat}
             className={`flex items-center gap-3 px-4 py-2 ${
-              category === cat ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"
+              category === cat ? "bg-gray-100 text-white" : "bg-gray-200 text-gray-700"
             } rounded-full shadow-sm cursor-pointer hover:bg-blue-100 hover:text-blue-700 transition-all`}
             key={cat}>
             <input
@@ -40,7 +40,6 @@ const PostFeed: React.FC = () => {
           </label>
         ))}
       </div>
-
       <div className="flex flex-col lg:flex-row bg-white rounded-xl shadow-md overflow-hidden w-full max-w-4xl">
         <div className="w-full p-6 flex flex-col justify-center">
           <form className="flex flex-col space-y-6" onSubmit={handleSave}>
