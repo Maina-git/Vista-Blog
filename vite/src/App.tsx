@@ -10,12 +10,15 @@ import { DatabaseProvider } from './context/addDatabaseContext';
 //import Sidebar from './components/articles/Sidebar';
 import CreatePost from './pages/CreatePost';
 
+
+
 const App = () => {
 
+  const [auth, setAuth]=useState<boolean>(false);
 
-const [auth, setAuth]=useState<boolean>(false);
 
-if(auth) return <AuthProvider setAuth={setAuth}> <Login/> </AuthProvider>
+if(!auth) return <AuthProvider setAuth={setAuth}> <Login/> </AuthProvider>
+
 
   return (
     <div>
