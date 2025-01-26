@@ -1,0 +1,22 @@
+export const WORLDINTERFACE=[
+{
+    id:1,
+    img:"/images/World/earth-1617121_1280.jpg"
+},
+{
+    id:2,
+    img:"/images/World/earth-1756274_1280.jpg"
+},
+{
+    id:3,
+    img:"/images/World/europe-3483539_1280.jpg"
+},
+{
+    id:4,
+    img:"/images/World/eyeglasses-8227429_1280.jpg"
+},
+{
+    id:5,
+    img:"/images/World/hands-600497_1280.jpg"
+}
+];

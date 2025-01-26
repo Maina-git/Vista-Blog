@@ -1,6 +1,6 @@
 import React, { ReactNode, FC, useState, createContext, useContext } from "react";
 import { db } from "../config/Firabse";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { auth } from "../config/Firabse";
 
 // Interface for the Context
@@ -25,10 +25,10 @@ interface AddToDatabaseProviderProps {
 
 // Provider Component
 export const DatabaseProvider: FC<AddToDatabaseProviderProps> = ({ children }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [category, setCategory] = useState("");
-  const [isSaving, setIsSaving] = useState(false);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   // Function to save data to Firestore
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,8 +46,8 @@ export const DatabaseProvider: FC<AddToDatabaseProviderProps> = ({ children }) =
         title,
         content,
         category,
-        createdAt: new Date(),
-       //author: auth.currentUser?.email.charAt(0) || "Anonymous", // Default to "Anonymous" if user is not signed in
+        createdAt: Timestamp.now(), // Use Firestore Timestamp
+        author: auth.currentUser?.email || "Anonymous", // Add fallback for undefined user
       });
 
       // Reset fields after successful save

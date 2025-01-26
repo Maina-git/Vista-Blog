@@ -14,6 +14,7 @@ import { SiTechcrunch } from "react-icons/si";
 import { TbWorldHeart } from "react-icons/tb";
 import { TiThSmall } from "react-icons/ti";
 import { MdHealthAndSafety } from "react-icons/md";
+import Growth from '../components/blogpages/Growth';
 
 interface Blog {
   id: number;
@@ -32,6 +33,7 @@ const Home: React.FC = () => {
     { id: 4, name: 'IT and Tech', path: <IT />, icon: <SiTechcrunch/> },
     { id: 5, name: 'World', path: <World />, icon: <TbWorldHeart/> },
     { id: 6, name: 'Health', path: <Health />, icon: <MdHealthAndSafety/>},
+    {id:7, name:"Growth", path:<Growth/>, icon:<TbWorldHeart/>}
   ];
 
   const handleBlogClick = (selectedBlog: JSX.Element): void => {

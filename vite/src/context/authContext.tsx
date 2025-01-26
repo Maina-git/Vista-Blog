@@ -1,6 +1,7 @@
 import React, { ReactNode, FC, useState, createContext, useContext } from 'react';
 import { auth } from '../config/Firabse';
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 
 interface AuthContextType {
   email: string;
@@ -9,6 +10,10 @@ interface AuthContextType {
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   login: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   logOut: () => Promise<void>;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  error: string | null;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,9 +26,12 @@ interface AuthProviderProps {
 export const AuthProvider: FC<AuthProviderProps> = ({ setAuth, children }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-
+  const [error, setError]=useState<string | null>(null);
+const [loading, setLoading]=useState<boolean>(false);
   const login = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
 
     if (!email || !password) {
       alert('Please fill in the details');
@@ -39,9 +47,12 @@ export const AuthProvider: FC<AuthProviderProps> = ({ setAuth, children }) => {
       await createUserWithEmailAndPassword(auth, email, password);
       setAuth(true);
       console.log('User successfully logged in');
-    } catch (err) {
-      console.error('Error during login:', err);
-      alert('Login failed. Please try again.');
+    } catch (error: any) {
+      setError(
+        error.message || "Failed to log in. Please check your credentials."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,7 +71,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ setAuth, children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ email, password, setEmail, setPassword, login, logOut }}>
+    <AuthContext.Provider value={{ email, password, setEmail, setPassword, login, logOut, loading, error, setLoading, setError }}>
       {children}
     </AuthContext.Provider>
   );

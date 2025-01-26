@@ -1,15 +1,13 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/Firabse";
 import { useAuth } from "../context/authContext";
 import { LuGalleryThumbnails } from "react-icons/lu";
 import { useEffect, useState } from "react";
 
+
 const Login = () => {
-  const { email, setEmail, password, setPassword } = useAuth();
+  const { email, setEmail, password, setPassword, login, loading, error } = useAuth();
 
   const [fade, setFade] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -17,22 +15,6 @@ const Login = () => {
     }, 15000);
     return () => clearTimeout(timer);
   }, []);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error: any) {
-      setError(
-        error.message || "Failed to log in. Please check your credentials."
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (!fade) {
     return (
@@ -55,7 +37,7 @@ const Login = () => {
         <LuGalleryThumbnails />
       </div>
       <form
-        onSubmit={handleLogin}
+        onSubmit={login}
         className="w-full max-w-md bg-white shadow-lg rounded-lg p-8"
       >
         <h1 className="text-pink-700 text-center text-2xl font-bold mb-6">

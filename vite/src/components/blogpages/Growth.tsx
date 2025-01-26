@@ -3,7 +3,8 @@ import BlogCard from '../cards/BlogCard';
 import { db } from '../../config/Firabse';
 import { getDocs, query, where } from 'firebase/firestore';
 import { collection, Timestamp } from 'firebase/firestore';
-import { TECHINTERFACE } from '../../interface/TechInterface';
+import { GROWTHINTERFACE } from '../../interface/GrowthInterface';
+
 
 interface Blog {
   id: string;
@@ -15,7 +16,7 @@ interface Blog {
   image: string;
 }
 
-const IT: React.FC = () => {
+const Growth: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -23,11 +24,11 @@ const IT: React.FC = () => {
     const fetchBlogs = async () => {
       try {
         const blogsCollection = collection(db, 'blogs');
-        const q = query(blogsCollection, where('category', '==', 'Culture'));
+        const q = query(blogsCollection, where('category', '==', 'Growth'));
         const querySnapshot = await getDocs(q);
 
-        // Shuffle the CULTUREINTERFACE array to assign unique images
-        const shuffledImages = [...TECHINTERFACE].sort(() => Math.random() - 0.5);
+        
+        const shuffledImages = [...GROWTHINTERFACE].sort(() => Math.random() - 0.5);
 
         const fetchedBlogs: Blog[] = querySnapshot.docs.map((doc, index) => {
           const data = doc.data();
@@ -69,7 +70,7 @@ const IT: React.FC = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-pink-700 m-2">Tech Blogs</h1>
+      <h1 className="text-3xl font-bold text-pink-700 m-2">Growth Blogs</h1>
       {blogs.map((blog) => (
         <BlogCard
           key={blog.id}
@@ -85,4 +86,4 @@ const IT: React.FC = () => {
   );
 };
 
-export default IT;
+export default Growth;

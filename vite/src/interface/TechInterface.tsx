@@ -1,0 +1,22 @@
+export const TECHINTERFACE=[
+    {
+        id:1,
+        img:"/images/Tech/bot-4926641_1280.jpg"
+    },
+    {
+        id:2,
+        img:"/images/Tech/circle-5090539_1280.jpg"
+    },
+    {
+        id:3,
+        img:"/images/Tech/lg-878843_1280.jpg"
+    },
+    {
+        id:4,
+        img:"/images/Tech/software-developer-6521720_1280.jpg"
+    },
+    {
+        id:5,
+        img:"/images/Tech/virtual-3460451_1280.jpg"
+    }
+];

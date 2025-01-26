@@ -14,7 +14,7 @@ const PostFeed: React.FC = () => {
 
 
  
-  const categories = ["Sports", "Culture", "IT & Tech", "World", "Health"];
+  const categories = ["Sports", "Culture", "IT & Tech", "World", "Health", "Growth"];
 
 
   return (

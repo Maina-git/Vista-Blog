@@ -1,0 +1,22 @@
+export const HEALTHINTERFACE=[
+    {
+        id:1,
+        img:"/images/Health/blood-pressure-1584223_1280.jpg"
+    },
+    {
+        id:2,
+        img:"/images/Health/doctor-563429_1280.jpg"
+    },
+    {
+        id:3,
+        img:"/images/Health/hypertension-867855_1280.jpg"
+    },
+    {
+        id:4,
+        img:"/images/Health/vegetables-1212845_1280.jpg"
+    },
+    {
+        id:5,
+        img:"/images/Health/walk-7945711_1280.jpg"
+    }
+];
