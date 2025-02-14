@@ -73,9 +73,9 @@ const World: React.FC = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold text-pink-700 m-2">World Blogs</h1>
-      {blogs.map((blog) => (
+      {blogs.map((blog, index) => (
         <BlogCard
-          key={blog.id}
+          key={index}
           title={blog.title}
           image={blog.image}
           content={blog.content}

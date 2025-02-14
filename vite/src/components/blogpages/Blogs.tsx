@@ -3,10 +3,9 @@ import BlogCard from '../cards/BlogCard';
 import { db } from '../../config/Firabse';
 import { getDocs } from 'firebase/firestore';
 import { collection, Timestamp } from 'firebase/firestore';
-import { GROWTHINTERFACE } from '../../interface/GrowthInterface';
+import { BLOGSINTERFACE } from '../../interface/BlogsInterface';
 
 interface Blog {
-  id: string;
   title: string;
   content: string;
   author: string;
@@ -25,14 +24,14 @@ const Blogs: React.FC = () => {
         const blogsCollection = collection(db, 'blogs');
         const querySnapshot = await getDocs(blogsCollection);
 
-        const shuffledImages = [...GROWTHINTERFACE].sort(() => Math.random() - 0.5);
+        const shuffledImages = [...BLOGSINTERFACE].sort(() => Math.random() - 0.5);
 
         const fetchedBlogs: Blog[] = querySnapshot.docs.map((doc, index) => {
           const data = doc.data();
           return {
             id: doc.id,
             title: data.title || 'Untitled',
-            image: shuffledImages[index % shuffledImages.length]?.img || '', // Assign unique image
+            image: shuffledImages[index % shuffledImages.length]?.img || '', 
             content: data.content || 'No content available.',
             author: data.author || 'Unknown',
             category: data.category || 'Uncategorized',
@@ -66,11 +65,11 @@ const Blogs: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center gap-2">
       <h1 className="text-3xl font-bold text-pink-700 m-2">ALL Blogs</h1>
-      {blogs.map((blog) => (
+      {blogs.map((blog, index) => (
         <BlogCard
-          key={blog.id}
+          key={index}
           title={blog.title}
           image={blog.image}
           content={blog.content}
@@ -84,3 +83,13 @@ const Blogs: React.FC = () => {
 };
 
 export default Blogs;
+
+
+
+
+
+
+
+
+
+

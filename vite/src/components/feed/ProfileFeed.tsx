@@ -3,10 +3,12 @@ import UserInfo from '../profile/UserInfo';
 
 const ProfileFeed: React.FC = () => {
   return (
-    <div className="w-1/4 h-screen m-2 rounded-lg bg-gray-200 p-4">
-    <UserInfo/>
+    <div className="hidden w-full md:w-1/4 h-auto md:h-screen md:block bg-gray-200 p-4 rounded-lg">
+      <UserInfo/>
     </div>
   );
 };
-
 export default ProfileFeed;
+
+
+

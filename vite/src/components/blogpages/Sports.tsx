@@ -3,7 +3,6 @@ import BlogCard from '../cards/BlogCard';
 import { db } from '../../config/Firabse';
 import { getDocs, query, where } from 'firebase/firestore';
 import { collection, Timestamp } from 'firebase/firestore';
-import { CULTUREINTERFACE } from '../../interface/CultureInterface';
 import { SPORTSINTERFACE } from '../../interface/SportsInterface';
 
 interface Blog {
@@ -65,22 +64,21 @@ const Sports: React.FC = () => {
   }
 
   if (blogs.length === 0) {
-    return <p>No blogs found.</p>;
+    return <p>No blogs found.</p>
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center gap-2">
       <h1 className="text-3xl font-bold text-pink-700 m-2">Sports Blogs</h1>
-      {blogs.map((blog) => (
+      {blogs.map((blog, index) => (
         <BlogCard
-          key={blog.id}
+          key={index}
           title={blog.title}
           image={blog.image}
           content={blog.content}
           author={blog.author}
           category={blog.category}
-          createdAt={blog.createdAt.toDate().toLocaleDateString()}
-        />
+          createdAt={blog.createdAt.toDate().toLocaleDateString()}/>
       ))}
     </div>
   );

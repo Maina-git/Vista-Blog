@@ -3,7 +3,8 @@ import BlogCard from '../cards/BlogCard';
 import { db } from '../../config/Firabse';
 import { getDocs, query, where } from 'firebase/firestore';
 import { collection, Timestamp } from 'firebase/firestore';
-import { CULTUREINTERFACE } from '../../interface/CultureInterface';
+import { GROWTHINTERFACE } from '../../interface/GrowthInterface';
+
 
 interface Blog {
   id: string;
@@ -15,7 +16,7 @@ interface Blog {
   image: string;
 }
 
-const Culture: React.FC = () => {
+const Growth: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -26,8 +27,8 @@ const Culture: React.FC = () => {
         const q = query(blogsCollection, where('category', '==', 'Culture'));
         const querySnapshot = await getDocs(q);
 
-        // Shuffle the CULTUREINTERFACE array to assign unique images
-        const shuffledImages = [...CULTUREINTERFACE].sort(() => Math.random() - 0.5);
+        
+        const shuffledImages = [...GROWTHINTERFACE].sort(() => Math.random() - 0.5);
 
         const fetchedBlogs: Blog[] = querySnapshot.docs.map((doc, index) => {
           const data = doc.data();
@@ -68,11 +69,11 @@ const Culture: React.FC = () => {
   }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-pink-700 m-2">Culture Blogs</h1>
-      {blogs.map((blog) => (
+    <div className="flex flex-col items-center justify-center gap-5">
+      <h1 className="text-3xl font-bold text-pink-700 m-2">Growth Blogs</h1>
+      {blogs.map((blog, index) => (
         <BlogCard
-          key={blog.id}
+          key={index}
           title={blog.title}
           image={blog.image}
           content={blog.content}
@@ -85,4 +86,4 @@ const Culture: React.FC = () => {
   );
 };
 
-export default Culture;
+export default Growth;

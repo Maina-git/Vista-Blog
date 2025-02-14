@@ -1,9 +1,8 @@
 import React, { ReactNode, FC, useState, createContext, useContext } from "react";
 import { db } from "../config/Firabse";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { addDoc, collection, Timestamp, deleteDoc, doc } from "firebase/firestore";
 import { auth } from "../config/Firabse";
 
-// Interface for the Context
 interface AddToDatabaseContextType {
   title: string;
   content: string;
@@ -13,24 +12,21 @@ interface AddToDatabaseContextType {
   setContent: React.Dispatch<React.SetStateAction<string>>;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   handleSave: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  deleteBlog: (blogId: string) => Promise<void>;
 }
 
-// Context Creation
 const AddToDatabaseContext = createContext<AddToDatabaseContextType | undefined>(undefined);
 
-// Props for the Provider Component
 interface AddToDatabaseProviderProps {
   children: ReactNode;
 }
 
-// Provider Component
 export const DatabaseProvider: FC<AddToDatabaseProviderProps> = ({ children }) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  // Function to save data to Firestore
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -42,15 +38,17 @@ export const DatabaseProvider: FC<AddToDatabaseProviderProps> = ({ children }) =
     setIsSaving(true);
 
     try {
-      await addDoc(collection(db, "blogs"), {
+      const docRef = await addDoc(collection(db, "blogs"), {
         title,
         content,
         category,
-        createdAt: Timestamp.now(), // Use Firestore Timestamp
-        author: auth.currentUser?.email || "Anonymous", // Add fallback for undefined user
+        createdAt: Timestamp.now(),
+        author: auth.currentUser?.email || "Anonymous",
+        id:auth.currentUser?.email?.charAt(0)
       });
 
-      // Reset fields after successful save
+      console.log("Blog saved with ID:", docRef.id);
+
       setTitle("");
       setContent("");
       setCategory("");
@@ -64,7 +62,21 @@ export const DatabaseProvider: FC<AddToDatabaseProviderProps> = ({ children }) =
     }
   };
 
-  // Providing Context Values
+  const deleteBlog = async (blogId: string) => {
+    if (!blogId) {
+      alert("Invalid blog ID.");
+      return;
+    }
+
+    try {
+      await deleteDoc(doc(db, "blogs", blogId));
+      alert("Blog deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+      alert("Failed to delete the blog. Please try again.");
+    }
+  };
+
   return (
     <AddToDatabaseContext.Provider
       value={{
@@ -76,14 +88,13 @@ export const DatabaseProvider: FC<AddToDatabaseProviderProps> = ({ children }) =
         setCategory,
         handleSave,
         isSaving,
-      }}
-    >
+        deleteBlog,
+      }}>
       {children}
     </AddToDatabaseContext.Provider>
   );
 };
 
-// Custom Hook for consuming the Context
 export const useDatabase = (): AddToDatabaseContextType => {
   const context = useContext(AddToDatabaseContext);
 

@@ -1,4 +1,4 @@
-//import React from 'react'
+import React from 'react'
 import Login from './pages/Login';
 import { useState } from 'react';
 import Home from './pages/Home';
@@ -6,20 +6,25 @@ import { AuthProvider } from './context/authContext';
 import Navbar from './components/articles/Navbar';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import { DatabaseProvider } from './context/addDatabaseContext';
-//import Blogs from './components/blogpages/Blogs';
-//import Sidebar from './components/articles/Sidebar';
 import CreatePost from './pages/CreatePost';
+import ProfileFeedB from './components/feed/ProfilefeedB';
+import { useEffect } from 'react';
+import About from './pages/About';
 
 
 
+const App:React.FC = () => {
 
-const App = () => {
+const [auth, setAuth] = useState<boolean>(() => {
+  return localStorage.getItem('auth') === 'true';
+});
 
-  const [auth, setAuth]=useState<boolean>(false);
+useEffect(() => {
+  localStorage.setItem('auth', String(auth));
+}, [auth]);
 
 
-if(auth) return <AuthProvider setAuth={setAuth}><Login/></AuthProvider>
-
+if(!auth) return <AuthProvider setAuth={setAuth}><Login/></AuthProvider>
 
   return (
     <div>
@@ -30,6 +35,8 @@ if(auth) return <AuthProvider setAuth={setAuth}><Login/></AuthProvider>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/c" element={<CreatePost/>}/>
+          <Route path="/p" element={<ProfileFeedB/>}/>
+          <Route  path="/a" element={<About/>}/>
         </Routes>
       </Router>
       </DatabaseProvider>

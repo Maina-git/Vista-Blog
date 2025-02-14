@@ -25,6 +25,8 @@ interface Blog {
 
 const Home: React.FC = () => {
   const [blogItem, setBlogItem] = useState<JSX.Element | null>(<Blogs />);
+  const [isOpen, setIsOpen] = useState(false);
+
 
   const Categories: Blog[] = [
     { id: 1, name: 'All', path: <Blogs />, icon: <TiThSmall/> },
@@ -38,10 +40,28 @@ const Home: React.FC = () => {
 
   const handleBlogClick = (selectedBlog: JSX.Element): void => {
     setBlogItem(selectedBlog);
+    setIsOpen(false);
   };
 
   return (
-    <div className="w-full h-auto flex items-center">
+    <div className="flex flex-col md:flex-row h-auto md:h-screen p-2 gap-2">
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} Categories={Categories} onBlogsClick={handleBlogClick} />
+      <BlogFeed blogs={blogItem} />
+      <ProfileFeed />
+    </div>
+  );
+};
+export default Home;
+  
+
+
+
+
+
+
+/*
+  return (
+    <div className="w-full h-auto  items-center  flex flex-col md:flex-row  ">
       <Sidebar Categories={Categories} onBlogsClick={handleBlogClick} />
       <BlogFeed blogs={blogItem} />
       <ProfileFeed />
@@ -50,9 +70,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-
-
-
-
-
+*/

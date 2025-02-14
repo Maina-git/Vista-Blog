@@ -69,11 +69,11 @@ const Health: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center gap-2">
       <h1 className="text-3xl font-bold text-pink-700 m-2">Health Blogs</h1>
-      {blogs.map((blog) => (
+      {blogs.map((blog, index) => (
         <BlogCard
-          key={blog.id}
+          key={index}
           title={blog.title}
           image={blog.image}
           content={blog.content}
